@@ -12,7 +12,7 @@ cask "forklift" do
     strategy :sparkle, &:short_version
   end
 
-  auto_updates true
+  auto_updates false
   depends_on macos: ">= :sierra"
 
   app "ForkLift.app"
