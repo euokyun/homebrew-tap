@@ -16,7 +16,7 @@ cask "tremotesf2" do
                    args:         [
                      "-dr",
                      "com.apple.quarantine",
-                     "#{appdir}/Ghidra.app",
+                     "#{appdir}/Tremotesf.app",
                    ]
   end
 
