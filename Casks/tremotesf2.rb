@@ -20,5 +20,10 @@ cask "tremotesf2" do
                    ]
   end
 
-  zap trash: []
+  zap trash: [
+        "~/Library/Preferences/com.tremotesf.tremotesf.plist",
+        "~/Library/Preferences/com.tremotesf.servers.plist",
+        "~/Library/Preferences/org.equeim.Tremotesf.plist",
+        "~/Library/Saved Application State/org.equeim.Tremotesf.savedState"
+      ]
 end
