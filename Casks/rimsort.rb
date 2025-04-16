@@ -8,7 +8,7 @@ cask "rimsort" do
   desc ""
   homepage "https://github.com/RimSort/RimSort"
 
-  auto_updates true
+  auto_updates false
 
   app "RimSort.app"
 
