@@ -1,5 +1,5 @@
 cask "tremotesf2" do
-  version "2.7.4"
+  version "2.8.2"
   sha256 :no_check
 
   url "https://github.com/equeim/tremotesf2/releases/download/#{version}/tremotesf-#{version}-macOS-arm64-Release.dmg"
