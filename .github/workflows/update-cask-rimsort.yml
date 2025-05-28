@@ -1,0 +1,32 @@
+name: Update Cask for RimSort
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  update-cask:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up GitHub token
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          GITHUB_TOKEN=$GITHUB_TOKEN
+
+      - name: Get latest release version from GitHub API
+        id: get_version
+        run: |
+          sed -i "s/version .*/version '$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/RimSort/RimSort/tags | awk -F'"' '/"name":/ {print $4}' | head -n 1) '/g" Casks/rimsort.rb
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add Casks/rimsort.rb
+          git commit -m "Update RimSort to version $GITHUB_OUTPUT_VERSION"
+          git push
