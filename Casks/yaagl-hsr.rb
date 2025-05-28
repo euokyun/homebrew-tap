@@ -1,4 +1,4 @@
-cask "Yaagl HSR" do
+cask "yaagl-hsr" do
   version '0.2.23'
   sha256 :no_check
 
