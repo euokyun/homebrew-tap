@@ -21,8 +21,7 @@ jobs:
       - name: Get latest release version from GitHub API
         id: get_version
         run: |
-          GITHUB_OUTPUT_VERSION=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/yaagl/yet-another-anime-game-launcher/releases/latest | grep -o '"tag_name": *"[^"]*"' | cut -d '"' -f4)
-          sed -i "s/version .*/version '$GITHUB_OUTPUT_VERSION'/g" Casks/yaagl-hsr.rb Casks/yaagl-zzz.rb
+          sed -i "s/version .*/version '$(curl -s https://api.github.com/repos/yaagl/yet-another-anime-game-launcher/releases/latest | grep -o '"tag_name": *"[^"]*"' | cut -d '"' -f4)'/g" Casks/yaagl-hsr.rb Casks/yaagl-zzz.rb
 
       - name: Commit and push changes
         run: |
