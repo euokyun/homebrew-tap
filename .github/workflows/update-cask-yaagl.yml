@@ -12,12 +12,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Set up GitHub token
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          GITHUB_TOKEN=$GITHUB_TOKEN
+
       - name: Get latest release version from GitHub API
         id: get_version
         run: |
-          GITHUB_TOKEN=$GITHUB_TOKEN
-          # GITHUB_OUTPUT_VERSION=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/yaagl/yet-another-anime-game-launcher/releases/latest | grep -o '"tag_name": *"[^"]*"' | cut -d '"' -f4)
-          GITHUB_OUTPUT_VERSION=$(curl -s  https://api.github.com/repos/yaagl/yet-another-anime-game-launcher/releases/latest | grep -o '"tag_name": *"[^"]*"' | cut -d '"' -f4)
+          GITHUB_OUTPUT_VERSION=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/yaagl/yet-another-anime-game-launcher/releases/latest | grep -o '"tag_name": *"[^"]*"' | cut -d '"' -f4)
 
       - name: Update Cask version and URL
         run: |
@@ -28,6 +32,6 @@ jobs:
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git add Casks/yaagl-hsr.rb
+          git add Casks/yaagl-hsr.rb Casks/yaagl-zzz.rb
           git commit -m "Update Yaagl HSR to version $GITHUB_OUTPUT_VERSION"
           git push
