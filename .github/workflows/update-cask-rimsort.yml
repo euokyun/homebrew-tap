@@ -21,7 +21,7 @@ jobs:
       - name: Get latest release version from GitHub API
         id: get_version
         run: |
-          sed -i "s/version .*/version '$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/RimSort/RimSort/tags | awk -F'"' '/"name":/ {print $4}' | head -n 1) '/g" Casks/rimsort.rb
+          sed -i "s/version .*/version '$(curl -s https://api.github.com/repos/RimSort/RimSort/tags | grep -o 'v[0-9]\.[0-9]\.[0-9][0-9]*' | head -n 1)'/g" Casks/rimsort.rb
 
       - name: Commit and push changes
         run: |
