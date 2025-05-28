@@ -3,6 +3,7 @@ name: Update Cask for Yaagl
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 jobs:
   update-cask:
@@ -15,7 +16,8 @@ jobs:
         id: get_version
         run: |
           GITHUB_TOKEN=$GITHUB_TOKEN
-          GITHUB_OUTPUT_VERSION=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/yaagl/yet-another-anime-game-launcher/releases/latest | grep -o '"tag_name": *"[^"]*"' | cut -d '"' -f4)
+          # GITHUB_OUTPUT_VERSION=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/yaagl/yet-another-anime-game-launcher/releases/latest | grep -o '"tag_name": *"[^"]*"' | cut -d '"' -f4)
+          GITHUB_OUTPUT_VERSION=$(curl -s  https://api.github.com/repos/yaagl/yet-another-anime-game-launcher/releases/latest | grep -o '"tag_name": *"[^"]*"' | cut -d '"' -f4)
 
       - name: Update Cask version and URL
         run: |
