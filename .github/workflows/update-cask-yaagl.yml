@@ -22,10 +22,6 @@ jobs:
         id: get_version
         run: |
           GITHUB_OUTPUT_VERSION=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/yaagl/yet-another-anime-game-launcher/releases/latest | grep -o '"tag_name": *"[^"]*"' | cut -d '"' -f4)
-
-      - name: Update Cask version and URL
-        run: |
-          # Replace the version in the Cask file
           sed -i "s/version .*/version '$GITHUB_OUTPUT_VERSION'/g" Casks/yaagl-hsr.rb Casks/yaagl-zzz.rb
 
       - name: Commit and push changes
