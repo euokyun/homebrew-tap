@@ -1,0 +1,31 @@
+name: Update Cask for Yaagl
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  update-cask:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Get latest release version from GitHub API
+        id: get_version
+        run: |
+          GITHUB_TOKEN=$GITHUB_TOKEN
+          GITHUB_OUTPUT_VERSION=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/yaagl/yet-another-anime-game-launcher/releases/latest | grep -o '"tag_name": *"[^"]*"' | cut -d '"' -f4)
+
+      - name: Update Cask version and URL
+        run: |
+          # Replace the version in the Cask file
+          sed -i "s/version .*/version '$GITHUB_OUTPUT_VERSION'/g" Casks/yaagl-hsr.rb Casks/yaagl-zzz.rb
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add Casks/yaagl-hsr.rb
+          git commit -m "Update Yaagl HSR to version $GITHUB_OUTPUT_VERSION"
+          git push
