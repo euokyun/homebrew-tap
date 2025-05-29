@@ -1,4 +1,4 @@
-cask "yaagl zzz" do
+cask "yaagl-zzz" do
   version '0.2.23'
   sha256 :no_check
 
