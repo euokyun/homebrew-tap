@@ -1,0 +1,43 @@
+name: Update Cask version
+
+on:
+  release:
+    schedule:
+      - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+jobs:
+  update-cask:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up GitHub token
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          GITHUB_TOKEN=$GITHUB_TOKEN
+
+      - name: Get latest release version from GitHub API
+        id: get_version
+        run: |
+          update() {
+            local repover=$(curl https://api.github.com/repos/$1/releases/latest | grep -o '"tag_name": *"[^"]*"' | cut -d '"' -f4)
+            local caskver=$(cat Casks/$2.rb | grep "version\s" | cut -d "'" -f2)
+
+            if [[ repover != caskver ]]; then
+              sed -i "s/version .*/version $repover/g" $2;
+            fi
+          }
+
+          update "Rimsort/Rimsort" "Casks/rimsort.rb"
+          update "repos/yaagl/yet-another-anime-game-launcher" "Casks/yaagl-hsr.rb Casks/yaagl-zzz.rb Casks/yaagl.rb"
+          update "loopwork-ai/iMCP" "Casks/imcp.rb"
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add .
+          git commit -m "Update casks."
+          git push
