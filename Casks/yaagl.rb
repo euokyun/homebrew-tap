@@ -1,5 +1,5 @@
 cask "yaagl" do
-  version '0.2.23'
+  version 
   sha256 :no_check
 
   url "https://github.com/yaagl/yet-another-anime-game-launcher/releases/download/#{version}/Yaagl.OS.app.tar.gz"
