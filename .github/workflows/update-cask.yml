@@ -23,16 +23,16 @@ jobs:
         id: get_version
         run: |
           update() {
-            local repover=$(curl https://api.github.com/repos/$1/releases/latest | grep -o '"tag_name": *"[^"]*"' | cut -d '"' -f4)
+            local repover=$(curl -s https://api.github.com/repos/$1/releases/latest | grep -o '"tag_name": *"[^"]*"' | cut -d '"' -f4)
             local caskver=$(cat Casks/$2.rb | grep "version\s" | cut -d "'" -f2)
 
             if [[ repover != caskver ]]; then
-              sed -i "s/version .*/version $repover/g" $2;
+              sed -i "s/version .*/version '$repover'/g" $2;
             fi
           }
 
           update "Rimsort/Rimsort" "Casks/rimsort.rb"
-          update "repos/yaagl/yet-another-anime-game-launcher" "Casks/yaagl-hsr.rb Casks/yaagl-zzz.rb Casks/yaagl.rb"
+          update "yaagl/yet-another-anime-game-launcher" "Casks/yaagl-hsr.rb Casks/yaagl-zzz.rb Casks/yaagl.rb"
           update "loopwork-ai/iMCP" "Casks/imcp.rb"
       - name: Commit and push changes
         run: |
