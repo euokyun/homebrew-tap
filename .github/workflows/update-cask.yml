@@ -1,9 +1,9 @@
 name: Update Cask version
 
 on:
-  release:
-    schedule:
-      - cron: "0 */6 * * *"
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
 
 jobs:
   update-cask:
@@ -23,20 +23,24 @@ jobs:
       - name: Get latest release version from GitHub API
         id: get_version
         run: |
+          changed=false
           update() {
             local repover=$(curl -s https://api.github.com/repos/$1/releases/latest | grep -o '"tag_name": *"[^"]*"' | cut -d '"' -f4)
-            local caskver=$(cat Casks/$2.rb | grep "version\s" | cut -d "'" -f2)
+            local caskver=$(cat $2 | grep "version\s" | cut -d "'" -f2)
 
             if [[ repover != caskver ]]; then
+              changed=true
               sed -i "s/version .*/version '$repover'/g" $2
               git add $2
             fi
           }
 
           update "Rimsort/Rimsort" "Casks/rimsort.rb"
-          update "yaagl/yet-another-anime-game-launcher" "Casks/yaagl-hsr.rb Casks/yaagl-zzz.rb Casks/yaagl.rb"
+          update "yaagl/yet-another-anime-game-launcher" "Casks/yaagl-hsr.rb"
           update "loopwork-ai/iMCP" "Casks/imcp.rb"
       - name: Commit and push changes
         run: |
-          git commit -m "Update casks."
-          git push
+          if [ changed ]; then
+            git commit -m "Update casks."
+            git push
+          fi
