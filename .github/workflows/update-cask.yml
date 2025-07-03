@@ -23,13 +23,13 @@ jobs:
       - name: Get latest release version from GitHub API
         id: get_version
         run: |
-          changed=false
+          changed=0
           update() {
             local repover=$(curl -s https://api.github.com/repos/$1/releases/latest | grep -o '"tag_name": *"[^"]*"' | cut -d '"' -f4)
             local caskver=$(cat $2 | grep "version\s" | cut -d "'" -f2)
 
             if [[ repover != caskver ]]; then
-              changed=true
+              changed=1
               sed -i "s/version .*/version '$repover'/g" $2
               git add $2
             fi
@@ -40,7 +40,7 @@ jobs:
           update "loopwork/iMCP" "Casks/imcp.rb"
       - name: Commit and push changes
         run: |
-          if [ changed ]; then
+          if [ changed -eq 1 ]; then
             git commit -m "Update casks."
             git push
           fi
