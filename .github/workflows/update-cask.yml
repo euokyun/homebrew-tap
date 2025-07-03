@@ -37,7 +37,7 @@ jobs:
 
           update "Rimsort/Rimsort" "Casks/rimsort.rb"
           update "yaagl/yet-another-anime-game-launcher" "Casks/yaagl-hsr.rb"
-          update "loopwork-ai/iMCP" "Casks/imcp.rb"
+          update "loopwork/iMCP" "Casks/imcp.rb"
       - name: Commit and push changes
         run: |
           if [ changed ]; then
