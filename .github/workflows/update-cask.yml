@@ -23,24 +23,23 @@ jobs:
       - name: Get latest release version from GitHub API
         id: get_version
         run: |
-          changed=0
           update() {
-            local repover=$(curl -s https://api.github.com/repos/$1/releases/latest | grep -o '"tag_name": *"[^"]*"' | cut -d '"' -f4)
-            local caskver=$(cat $2 | grep "version\s" | cut -d "'" -f2)
+            local repo_ver=$(curl -s https://api.github.com/repos/$1/releases/latest | grep -o '"tag_name": *"[^"]*"' | cut -d '"' -f4)
+            local caskfile="Casks/$2.rb"
+            local cask_ver=$(cat $caskfile | grep "version\s" | cut -d "'" -f2)
 
-            if [[ repover != caskver ]]; then
-              changed=1
-              sed -i "s/version .*/version '$repover'/g" $2
-              git add $2
+            if [[ repo_ver != cask_ver ]]; then
+              sed -i "s/version .*/version '$repo_ver'/g" $caskfile
+              git add $caskfile
             fi
           }
 
-          update "Rimsort/Rimsort" "Casks/rimsort.rb"
-          update "yaagl/yet-another-anime-game-launcher" "Casks/yaagl-hsr.rb"
-          update "loopwork/iMCP" "Casks/imcp.rb"
+          update "Rimsort/Rimsort" "rimsort"
+          update "yaagl/yet-another-anime-game-launcher" "yaagl-hsr"
+          update "loopwork/iMCP" "imcp"
       - name: Commit and push changes
         run: |
-          if [ changed -eq 1 ]; then
+          if ! git diff --cached --quiet; then
             git commit -m "Update casks."
             git push
           fi
