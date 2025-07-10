@@ -1,5 +1,5 @@
 cask 'imcp' do
-  version '1.3.0'
+  version ''
   sha256 :no_check
 
   url "https://github.com/loopwork-ai/iMCP/releases/download/#{version}/iMCP.zip"
