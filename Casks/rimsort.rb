@@ -1,5 +1,5 @@
 cask "rimsort" do
-  version 'v1.0.29'
+  version 'v1.0.30'
   arch arm: "arm", intel: "i386"
   sha256 :no_check
 
