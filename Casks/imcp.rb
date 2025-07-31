@@ -2,10 +2,10 @@ cask 'imcp' do
   version ''
   sha256 :no_check
 
-  url "https://github.com/loopwork-ai/iMCP/releases/download/#{version}/iMCP.zip"
+  url "https://github.com/mattt/iMCP/releases/download/#{version}/iMCP.zip"
   name 'iMCP'
   desc ''
-  homepage 'https://github.com/loopwork-ai/iMCP'
+  homepage 'https://github.com/mattt/iMCP'
 
   app 'iMCP.app'
 
@@ -19,9 +19,5 @@ cask 'imcp' do
                    ]
   end
 
-  zap trash: [
-        # "~/Library/Application Support/Yaagl OS",
-        # "~/Library/Caches/com.3shain.yaagl.os",
-        # "~/Library/WebKit/com.3shain.yaagl.os"
-      ]
+  zap trash: [ ]
 end
