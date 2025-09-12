@@ -28,7 +28,7 @@ jobs:
             local caskfile="Casks/$2.rb"
             local cask_ver=$(cat $caskfile | grep "version\s" | cut -d "'" -f2)
 
-            if [[ repo_ver != cask_ver ]]; then
+            if [[ -n $repo_ver && $repo_ver != $cask_ver ]]; then
               sed -i "s/version .*/version '$repo_ver'/g" $caskfile
               git add $caskfile
             fi
