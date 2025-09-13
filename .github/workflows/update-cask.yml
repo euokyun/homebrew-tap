@@ -37,6 +37,7 @@ jobs:
           update "Rimsort/Rimsort" "rimsort"
           update "yaagl/yet-another-anime-game-launcher" "yaagl-hsr"
           update "mattt/iMCP" "imcp"
+          update "satisfactorymodding/SatisfactoryModManager" "satisfactorymodmanager"
       - name: Commit and push changes
         run: |
           if ! git diff --cached --quiet; then
