@@ -1,5 +1,5 @@
 cask "yaagl-hsr" do
-  version '0.2.30'
+  version '0.3.0'
   sha256 :no_check
 
   url "https://github.com/yaagl/yet-another-anime-game-launcher/releases/download/#{version}/Yaagl.HSR.OS.app.tar.gz"
