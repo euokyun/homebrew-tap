@@ -13,7 +13,6 @@ cask "forklift" do
   end
 
   auto_updates false
-  depends_on macos: ">= :sierra"
 
   app "ForkLift.app"
 

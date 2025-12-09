@@ -13,7 +13,6 @@ cask "a-better-finder-rename" do
   end
 
   auto_updates false
-  depends_on macos: ">= :high_sierra"
 
   app "A Better Finder Rename #{version.major}.app"
 
