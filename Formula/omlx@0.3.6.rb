@@ -1,4 +1,4 @@
-class OmlxAT036 < Formula
+class OmlxAt0.3.6 < Formula
   desc "LLM inference server optimized for Apple Silicon"
   homepage "https://github.com/jundot/omlx"
   url "https://github.com/jundot/omlx/archive/refs/tags/v0.3.6.tar.gz"
