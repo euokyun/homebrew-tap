@@ -1,5 +1,5 @@
 cask "satisfactorymodmanager" do
-  version 'v3.0.7'
+  version 'v3.1.0'
   sha256 :no_check
 
   url "https://github.com/satisfactorymodding/SatisfactoryModManager/releases/download/#{version}/SatisfactoryModManager_darwin_universal.zip"
