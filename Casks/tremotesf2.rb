@@ -12,11 +12,11 @@ cask "tremotesf2" do
   app "Tremotesf.app"
 
   postflight_steps do
-    run "/usr/bin/xattr", args:         [
-                     "-dr",
-                     "com.apple.quarantine",
-                     "{{appdir}}/Tremotesf.app",
-                   ]
+    run "/usr/bin/xattr", args: [
+          "-dr",
+          "com.apple.quarantine",
+          "{{appdir}}/Tremotesf.app",
+        ]
   end
 
   zap trash: [
